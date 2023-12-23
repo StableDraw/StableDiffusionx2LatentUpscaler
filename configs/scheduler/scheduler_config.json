@@ -1,0 +1,11 @@
+{
+  "_class_name": "EulerDiscreteScheduler",
+  "_diffusers_version": "0.13.0.dev0",
+  "beta_end": 0.012,
+  "beta_schedule": "scaled_linear",
+  "beta_start": 0.00085,
+  "num_train_timesteps": 1000,
+  "interpolation_type": "log_linear",
+  "prediction_type": "original_sample",
+  "trained_betas": null
+}

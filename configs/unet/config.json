@@ -1,0 +1,50 @@
+{
+  "_class_name": "UNet2DConditionModel",
+  "_diffusers_version": "0.13.0.dev0",
+  "_name_or_path": "/home/patrick_huggingface_co/latent-upscaler/unet",
+  "act_fn": "gelu",
+  "attention_head_dim": 64,
+  "block_out_channels": [
+    384,
+    384,
+    768,
+    768
+  ],
+  "center_input_sample": false,
+  "class_embed_type": null,
+  "conv_in_kernel": 1,
+  "conv_out_kernel": 1,
+  "cross_attention_dim": 768,
+  "down_block_types": [
+    "KDownBlock2D",
+    "KCrossAttnDownBlock2D",
+    "KCrossAttnDownBlock2D",
+    "KCrossAttnDownBlock2D"
+  ],
+  "downsample_padding": 1,
+  "dual_cross_attention": false,
+  "flip_sin_to_cos": true,
+  "freq_shift": 0,
+  "in_channels": 8,
+  "layers_per_block": 4,
+  "mid_block_scale_factor": 1,
+  "mid_block_type": null,
+  "norm_eps": 1e-05,
+  "norm_num_groups": null,
+  "num_class_embeds": null,
+  "only_cross_attention": false,
+  "out_channels": 5,
+  "resnet_time_scale_shift": "scale_shift",
+  "sample_size": null,
+  "time_cond_proj_dim": 896,
+  "time_embedding_type": "fourier",
+  "timestep_post_act": "gelu",
+  "up_block_types": [
+    "KCrossAttnUpBlock2D",
+    "KCrossAttnUpBlock2D",
+    "KCrossAttnUpBlock2D",
+    "KUpBlock2D"
+  ],
+  "upcast_attention": false,
+  "use_linear_projection": false
+}
