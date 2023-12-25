@@ -111,8 +111,8 @@ class StableDiffusionLatentUpscalePipeline(DiffusionPipeline):
         # 1. Определение вызываемых параметров
         batch_size = 1
         device = self._execution_device
-        # Здесь "guidance_scale" определяется аналогично весу наведения "w" в уравнении (2) соответствует отсутствию свободного наведения классификатора
-        guidance_scale = opt["guidance_scale"]
+        # Здесь "scale" определяется аналогично весу наведения "w" в уравнении (2) соответствует отсутствию свободного наведения классификатора
+        guidance_scale = opt["scale"]
         do_classifier_free_guidance = guidance_scale > 1.0
         if guidance_scale == 0:
             prompt = [""] * batch_size
@@ -133,7 +133,7 @@ class StableDiffusionLatentUpscalePipeline(DiffusionPipeline):
         image = image[None, :] if image.ndim == 3 else image
         image = torch.cat([image] * batch_multiplier)
         # 5. Добавление шума для изображения. Этот шаг теоретически может улучшить работу модели на входных данных вне распределения, но в основном он просто заставляет ее меньше соответствовать входным данным
-        noise_level = torch.tensor([opt["noise_augmentation"]], dtype = torch.float32, device = device)
+        noise_level = torch.tensor([opt["noise"]], dtype = torch.float32, device = device)
         noise_level = torch.cat([noise_level] * image.shape[0])
         inv_noise_level = (noise_level ** 2 + 1) ** (-0.5)
         image_cond = torch.nn.functional.interpolate(image, scale_factor = opt["outscale"], mode = "nearest") * inv_noise_level[:, None, None, None]
@@ -201,13 +201,13 @@ def Stable_diffusion_upscaler_xX(init_img_binary_data, caption, params):
 
 if __name__ == '__main__':
     params = {
-        "steps": 20,                            #Шаги, от 2 до 250
-        "seed": 33,                             #От 0 до 1000000
-        "noise_augmentation": 0,               #Удаление шума (от 0 до 350)  
-        "outscale": 2,                          #Величина того, во сколько раз увеличть разшрешение изображения (рекомендуется 2)
-        "guidance_scale": 0,                  #От 0 до 30
-        "negative_prompt": "",                #Негативное описание (если без него, то "")
-        "max_dim": pow(1024, 2)                 #Я не могу генерировать на своей видюхе картинки больше 512 на 512 для x4 и 512 на 512 для x2
+        "negative_prompt": "",      #Негативное описание (если без него, то "")
+        "steps": 20,                #Шаги, от 2 до 250
+        "seed": 33,                 #От 0 до 1000000
+        "noise": 0,                 #Удаление шума (от 0 до 350)  
+        "outscale": 2,              #Величина того, во сколько раз увеличть разшрешение изображения (рекомендуется 2)
+        "scale": 0,                 #От 0 до 30    
+        "max_dim": pow(1024, 2)     #Я не могу генерировать на своей видюхе картинки больше 512 на 512 для x4 и 512 на 512 для x2
     }
 
     with open("img.png", "rb") as f:
