@@ -11,6 +11,7 @@
     <OutputPath>.</OutputPath>
     <Name>StableDiffusionx2LatentUpscaler</Name>
     <RootNamespace>StableDiffusionx2LatentUpscaler</RootNamespace>
+    <SuppressEnvironmentCreationPrompt>True</SuppressEnvironmentCreationPrompt>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

@@ -2,6 +2,8 @@ import io
 import torch
 import numpy
 from PIL import Image
+from os.path import isfile
+from huggingface_hub import hf_hub_download
 from transformers import CLIPTextModel, CLIPTokenizer
 from diffusers.models import AutoencoderKL, UNet2DConditionModel
 from diffusers.schedulers import EulerDiscreteScheduler
@@ -193,6 +195,12 @@ class StableDiffusionLatentUpscalePipeline(DiffusionPipeline):
         return b_data
 
 def Stable_diffusion_upscaler_xX(init_img_binary_data, caption, params):
+    if not isfile("text_encoder/pytorch_model.bin"):
+        hf_hub_download(repo_id = "stabilityai/sd-x2-latent-upscaler", subfolder = "text_encoder", filename = "pytorch_model.bin", local_dir = "configs", local_dir_use_symlinks = False)
+    if not isfile("text_encoder/pytorch_model.bin"):
+        hf_hub_download(repo_id = "stabilityai/sd-x2-latent-upscaler", subfolder = "unet", filename = "diffusion_pytorch_model.bin", local_dir = "configs", local_dir_use_symlinks = False)
+    if not isfile("text_encoder/pytorch_model.bin"):
+        hf_hub_download(repo_id = "stabilityai/sd-x2-latent-upscaler", subfolder = "vae", filename = "diffusion_pytorch_model.bin", local_dir = "configs", local_dir_use_symlinks = False)
     upscaler_pipeline = StableDiffusionLatentUpscalePipeline
     upscaler = upscaler_pipeline.from_pretrained("configs", torch_dtype = torch.float16)
     upscaler.to("cuda")
